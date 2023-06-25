@@ -1,0 +1,98 @@
+{{define "content"}}
+<div class="container">
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/?token={{.Token}}">Overview</a></li>
+      <li class="breadcrumb-item"><a href="/library?token={{.Token}}">Library</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Info</li>
+    </ol>
+  </nav>
+
+  <div class="card">
+    <div class="card-header">
+      INFO
+    </div>
+    <div class="card-body">
+      <ul class="list-inline">
+        <!-- Button trigger modal -->
+        <li class="list-inline-item">
+          <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            Delete
+          </button>
+          <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#buyModal">
+            Share
+          </button>
+        </li>
+      </ul>
+      <h3 class="card-title mb-0">{{ .File.Name }}</h5>
+      <p class="text-muted fs-5 fw-light">Added: {{ .File.Added.Format "2006 Jan 02" }}</p>
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Size [MB]</th>
+            <th scope="col">Preview</th>
+            <th scope="col">Download</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ .File.Name }}</td>
+            <td>{{ .SizeMB }}</td>
+            <td><a href="/{{ .File.Name }}&token={{ .Token}}" target="_blank">Preview</a></td>
+            <td class="text-primary"><a href="/download?file={{ .File.Name }}&token={{ .Token}}" download>Download</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">File deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" , name="password">
+          </div>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Share Modal -->
+<div class="modal fade" id="shareModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">File deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">URL:</label>
+            <input type="password" class="form-control" id="password" , name="password">
+          </div>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{end}}

@@ -1,0 +1,86 @@
+{{define "content"}}
+<div class="container">
+  <nav aria-label="breadcrumb d-flex justify-content-between">
+    <div class="d-flex justify-content-between">
+      <div>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Overview</li>
+        </ol>
+      </div>
+      <div>
+        <button type="button" class="btn btn-primary btn-lg ms-right" data-bs-toggle="modal"
+          data-bs-target="#importModal"><i class="fa-solid fa-file-import"></i> Import File</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Import file modal -->
+  <div class="modal fade" id="importModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <form enctype="multipart/form-data" action="/import?token={{.Token}}" method="POST">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Import file</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="file" name="importFile" />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-sm-10">
+      <div class="card mt-3 mb-3">
+        <h2 class="card-header"><a href="/library?token={{.Token}}">Library</a></h2>
+        <div class="card-body">
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Filename</th>
+                <th scope="col">Size</th>
+                <th scope="col">Added</th>
+                <th scope="col">...</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{range $i, $x := .Files }}
+              <tr>
+                <th scope="row">{{ $i }}</th>
+                <td>{{$x.Name}}</td>
+                <td>{{$x.Size}}</td>
+                <td>{{$x.Added}}</td>
+                <td class="text-primary"><a href="/info/{{$x.Name}}?token={{$.Token}}">More</a>
+                </td>
+              </tr>
+              {{if eq $i 10}}{{break}}{{end}}
+              {{end}}
+              <tr>
+                <th colspan="5" class="text-center">
+                  <div class="d-grid gap-2 col-3 mx-auto">
+                    <a href="/library?token={{.Token}}" class="btn btn-outline-primary btn-sm">...</a>
+                  </div>
+                </th>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="card-text">Files that are owned by you. You can check more of them in the library page.</p>
+          <a href="/library?token={{.Token}}" class="btn btn-primary">Library</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+{{end}}

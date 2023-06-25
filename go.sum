@@ -1,0 +1,10 @@
+github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+github.com/wspirrat/swt v0.0.0-20221025171359-e9bcef7f1d97 h1:vIwqAZ0KmdT68n7dFGYZOfRZp0NQGbPJiW0eGTdttn4=
+github.com/wspirrat/swt v0.0.0-20221025171359-e9bcef7f1d97/go.mod h1:7bAzefkQKC569BjM9rXK1nuXPdkEHNN0Omnyyw/2roQ=
+github.com/wspirrat/swt v0.0.0-20221026141110-d0c97f8c93b5 h1:rJwdhlxZxfg9222dmHorMIWOWxpCLpvqO/P7des8Wno=
+github.com/wspirrat/swt v0.0.0-20221026141110-d0c97f8c93b5/go.mod h1:7bAzefkQKC569BjM9rXK1nuXPdkEHNN0Omnyyw/2roQ=
+github.com/wspirrat/swt v0.0.0-20221026144413-ef65ed961b35 h1:Rp4TwNC+NtVTOw1wWQu44jkhEO9r72m17e/EUjLMCYE=
+github.com/wspirrat/swt v0.0.0-20221026144413-ef65ed961b35/go.mod h1:7bAzefkQKC569BjM9rXK1nuXPdkEHNN0Omnyyw/2roQ=
+golang.org/x/crypto v0.1.0 h1:MDRAIl0xIo9Io2xV565hzXHw3zVseKrJKodhohM5CjU=
+golang.org/x/crypto v0.1.0/go.mod h1:RecgLatLF4+eUMCP1PoPZQb+cVrJcOPbHkTkbkB9sbw=
