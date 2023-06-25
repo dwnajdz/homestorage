@@ -18,18 +18,28 @@ import (
 func main() {
 	// page routes
 	http.HandleFunc("/", index)
-	http.HandleFunc("/proxy", proxy)
 	http.HandleFunc("/import", importFile)
 	http.HandleFunc("/library", library)
 	http.HandleFunc("/download", downloadToClient)
 	http.HandleFunc("/info/", fileInfo)
 	// user interface
 	http.HandleFunc("/login", login)
-	http.HandleFunc("/signup", signUp)
 	http.HandleFunc("/signout", signOut)
 
-	log.Println("listening on http://localhost:80")
-	http.ListenAndServe(":80", nil)
+	fs := http.FileServer(http.Dir("storage/160eaf9f-1378-11ee-aa56-309c2309ddb0/"))
+	http.Handle("/public/", http.StripPrefix("/public/", fs))
+
+	user := db.User{
+		ID:       "160eaf9f-1378-11ee-aa56-309c2309ddb0",
+		Email:    "test@demo.com",
+		Username: "test",
+		Password: db.HashPassword("test"),
+		IsAdmin:  true,
+	}
+	db.UsersAdd("test@demo.com", user)
+
+	log.Println("listening on http://localhost:3000")
+	http.ListenAndServe(":3000", nil)
 }
 
 type BaseTemplate struct {
@@ -243,58 +253,9 @@ func login(w http.ResponseWriter, r *http.Request) {
 	tmpl.Execute(w, nil)
 }
 
-func signUp(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("frontend/signup.html"))
-
-	if r.Method == "POST" {
-		username := r.FormValue("username")
-		email := r.FormValue("email")
-		password := r.FormValue("password")
-		id := db.NewUUID()
-
-		user := db.User{
-			ID:       id,
-			Email:    email,
-			Username: username,
-			Password: db.HashPassword(password),
-			IsAdmin:  true,
-		}
-
-		if !db.DoesThisUserExist(email) {
-			db.UsersAdd(email, user)
-			http.Redirect(w, r, "/login?status=success", http.StatusFound)
-		} else {
-			http.Redirect(w, r, "/signup?status=user already exist", http.StatusFound)
-
-		}
-	}
-
-	tmpl.Execute(w, nil)
-}
-
 func signOut(w http.ResponseWriter, r *http.Request) {
 	session := getToken(r)
 	session.SignOut()
 
 	http.Redirect(w, r, "/login?status=signout", http.StatusFound)
-}
-
-func proxy(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("frontend/proxy.html"))
-	session := getToken(r)
-
-	if r.Method == "POST" {
-		password := r.FormValue("password")
-
-		current_user := db.UsersQuery(session.CurrentUser.Email)
-		if current_user.UserCheckPassword(password) {
-			session.SignOut()
-			swt_session := db.NewSWTSession(current_user, r)
-			http.Redirect(w, r, fmt.Sprintf("/?token=%s", swt_session), http.StatusFound)
-		} else {
-			http.Redirect(w, r, "/login?status=fail", http.StatusFound)
-		}
-	}
-
-	tmpl.Execute(w, nil)
 }

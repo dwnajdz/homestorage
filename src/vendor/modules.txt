@@ -1,0 +1,10 @@
+# github.com/google/uuid v1.3.0
+## explicit
+github.com/google/uuid
+# github.com/wspirrat/swt v0.0.0-20221026144413-ef65ed961b35
+## explicit; go 1.19
+github.com/wspirrat/swt/swt
+# golang.org/x/crypto v0.1.0
+## explicit; go 1.17
+golang.org/x/crypto/bcrypt
+golang.org/x/crypto/blowfish

@@ -2,15 +2,8 @@ package db
 
 import (
 	"net/textproto"
-	"sync"
 	"time"
 )
-
-type FileTemplate struct {
-	Mu sync.Mutex
-	// map[userid]map[filename]File
-	Cargo map[string][]File
-}
 
 type File struct {
 	Name   string

@@ -57,7 +57,7 @@
                 <th scope="row">{{ $i }}</th>
                 <td>{{$x.Name}}</td>
                 <td>{{$x.Size}}</td>
-                <td>{{$x.Added}}</td>
+                <td>{{$x.Added.Format "2006 Jan 02"}}</td>
                 <td class="text-primary"><a href="/info/{{$x.Name}}?token={{$.Token}}">More</a>
                 </td>
               </tr>
@@ -73,7 +73,7 @@
             </tbody>
           </table>
 
-          <p class="card-text">Files that are owned by you. You can check more of them in the library page.</p>
+          <p class="card-text">Files that are owned by you. You can check more of them in the library page.<br> Files cannot be deleted.</p>
           <a href="/library?token={{.Token}}" class="btn btn-primary">Library</a>
         </div>
       </div>

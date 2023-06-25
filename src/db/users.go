@@ -2,15 +2,9 @@ package db
 
 import (
 	"fmt"
-	"sync"
 
 	"golang.org/x/crypto/bcrypt"
 )
-
-type UsersTemplate struct {
-	Mu    sync.Mutex
-	Cargo map[string]User
-}
 
 type User struct {
 	ID       string
@@ -31,7 +25,6 @@ func UsersAdd(key string, value User) {
 
 		return
 	}
-
 	usersSession.Cargo[key] = value
 }
 
