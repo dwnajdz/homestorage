@@ -21,6 +21,7 @@ func main() {
 	http.HandleFunc("/import", importFile)
 	http.HandleFunc("/library", library)
 	http.HandleFunc("/download", downloadToClient)
+	http.HandleFunc("/delete", downloadToClient)
 	http.HandleFunc("/info/", fileInfo)
 	// user interface
 	http.HandleFunc("/login", login)
